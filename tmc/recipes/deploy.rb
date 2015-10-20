@@ -5,29 +5,21 @@
 # Copyright (c) 2015 The Authors, All Rights Reserved.
 # Define the local app and site locations.
 Chef::Log.level = :debug
-query = Chef::Search::Query.new
-app = query.search(:aws_opsworks_app, "type:other").first
-app_name = app[0][:environment][:APP_NAME]
-app_site_name = node['tmc']['app_site_name']
-app_directory = 'C:\inetpub\apps\\' + app_site_name + '\\' + app_name
-site_directory = 'C:\inetpub\sites\\' + app_site_name
-app_source = app[0][:environment][:APP_ZIP_FILE_LOCATION]
+site_name = node['tmc']['site_name']
+site_directory = 'C:\inetpub\sites\\' + site_name
+site_source = node['tmc']['site_source']
 
-app_pool_name = app_site_name + '_' + app_name
+
+app_pool_name = site_name
 # Download the built application and unzip it to the app directory.
-windows_zipfile app_directory do
-  source app_source
+windows_zipfile site_directory do
+  source site_source
   action :unzip
-  not_if { ::File.exists?(app_directory) }
+  not_if { ::File.exists?(site_directory) }
 end
 
 # Create the site app pool.
-iis_pool  app_site_name do
-  runtime_version '4.0'
-  action :add
-end
-# Create the application app pool.
-iis_pool  app_pool_name do
+iis_pool  site_name do
   runtime_version '4.0'
   action :add
 end
@@ -40,19 +32,11 @@ directory site_directory do
 end
 
 # Create the app site.
-iis_site app_site_name do
+iis_site site_name do
   protocol :http
   port 80
   path site_directory
-  application_pool app_site_name
+  application_pool site_name
+  host_header node['tmc']['host_header']
   action [:add, :start]
 end
-
-# Create the app in the site.
-iis_app app_site_name do
-  application_pool app_pool_name
-  path '/' + app_name
-  physical_path app_directory
-  action :add
-end
-

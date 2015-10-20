@@ -6,7 +6,8 @@
 # Define the local app and site locations.
 Chef::Log.level = :debug
 site_name = node['tmc']['site_name']
-site_directory = 'C:\inetpub\sites\\' + site_name
+site_base_directory = node['tmc']['site_base_dir']
+site_directory = "#{site_base_directory}\\#{site_name}"
 site_source = node['tmc']['site_source']
 
 
@@ -33,8 +34,8 @@ end
 
 # Create the app site.
 iis_site site_name do
-  protocol :http
-  port 80
+  protocol node['tmc']['protocol']
+  port node['tmc']['port']
   path site_directory
   application_pool site_name
   host_header node['tmc']['host_header']

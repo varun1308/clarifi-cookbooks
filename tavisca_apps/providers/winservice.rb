@@ -5,7 +5,7 @@ action :install do
 	service_install_directory = "#{new_resource.service_install_base_path}\\#{new_resource.service_name}"
 
 	#stop the service
-	windows_service '#{new_resource.service_name}' do
+	windows_service "#{new_resource.service_name}" do
 	  action :stop
 	  ignore_failure true
 	end
@@ -24,16 +24,16 @@ action :install do
 	        $Service.Delete() 
 	     }
 	  EOH
-	  notifies :run, 'execute[Installing Service #{new_resource.service_name}]', :immediately
+	  notifies :run, "execute[Installing Service #{new_resource.service_name}]", :immediately
 	end
 
-	execute 'Installing Service #{new_resource.service_name}' do
+	execute "Installing Service #{new_resource.service_name}" do
 	  command "sc create \"#{new_resource.service_name}\" binPath= \"#{service_install_directory}\\#{new_resource.service_executable_with_args}\""
 	  action :nothing
 	end
 
 	#configure startup
-	windows_service '#{new_resource.service_name}' do
+	windows_service "#{new_resource.service_name}" do
 	  action :configure_startup
 	  startup_type new_resource.service_start
 	end
@@ -43,7 +43,7 @@ end
 action :start do
 
 	#start the service
-	windows_service '#{new_resource.service_name}' do
+	windows_service "#{new_resource.service_name}" do
 	  action :start
 	end
 end

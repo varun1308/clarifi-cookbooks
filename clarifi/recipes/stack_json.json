@@ -1,0 +1,10 @@
+{
+	"tmcui" : {
+	"site_name" : "clarifi",
+	"site_source" : "https://s3-us-west-2.amazonaws.com/varun-iis-cookbook/tmc.zip"
+	},
+	"room_std_website" : {
+	"site_name" : "roomstd",
+	"site_source" : "https://s3-us-west-2.amazonaws.com/varun-iis-cookbook/roomstd.zip"
+	}
+}

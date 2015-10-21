@@ -14,8 +14,7 @@ action :add do
 
 	# Create the site app pool.
 	iis_pool  new_resource.website_name do
-	  runtime_version '4.0'
-	  action :add
+	  runtime_version new_resource.runtime_version
 	end
 
 	# Create the site directory and give IIS_IUSRS read rights.

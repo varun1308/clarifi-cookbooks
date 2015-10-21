@@ -1,6 +1,7 @@
-default['clarifi_winsvc']['site_name'] = 'clarifi'
-default['clarifi_winsvc']['site_source'] = nil
-default['clarifi_winsvc']['host_header'] = nil
-default['clarifi_winsvc']['port'] = 80
-default['clarifi_winsvc']['protocol'] = :http
-default['clarifi_winsvc']['site_base_directory'] = "#{ENV['SYSTEMDRIVE']}\\inetpub\\wwwroot"
+default['clarifi_website']['site_name'] = 'clarifi'
+default['clarifi_website']['site_source'] = nil
+default['clarifi_website']['host_header'] = nil
+default['clarifi_website']['port'] = 80
+default['clarifi_website']['protocol'] = :http
+default['clarifi_website']['runtime_version'] = '4.0'
+default['clarifi_website']['site_base_directory'] = "#{ENV['SYSTEMDRIVE']}\\inetpub\\wwwroot"

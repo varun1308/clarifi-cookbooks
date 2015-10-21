@@ -12,5 +12,5 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[clarifi_winsvc::default]
+      - recipe[clarifi_website::default]
     attributes:

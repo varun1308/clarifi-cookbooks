@@ -11,12 +11,12 @@ action :add do
 
 	opsworks_scm_checkout new_resource.website_name do
 	    destination      app_checkout
-	    repository       new_resource.scm.url
-	    revision         new_resource.scm.revision
-	    user             new_resource.scm.username
-	    password         new_resource.scm.password
-	    ssh_key          new_resource.scm.ssh_key
-	    type             new_resource.scm.type
+	    repository       new_resource.scm[:url]
+	    revision         new_resource.scm[:revision]
+	    user             new_resource.scm[:username]
+	    password         new_resource.scm[:password]
+	    ssh_key          new_resource.scm[:ssh_key]
+	    type             new_resource.scm[:type]
   	end
 
   		# Copy app to deployment directory

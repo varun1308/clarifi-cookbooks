@@ -7,3 +7,4 @@ long_description 'Installs/Configures tavisca_apps'
 version '0.1.0'
 
 depends 'iis', '~> 4.1.1'
+depends 'opsworks_scm'

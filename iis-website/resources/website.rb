@@ -7,14 +7,14 @@ attribute :website_base_directory, :kind_of => String, :default => "#{ENV['SYSTE
 
 action :add do
 	
-	site_directory = "#{website_base_directory}\\#{website_name}"
+	website_directory = "#{website_base_directory}\\#{website_name}"
 	
 	app_pool_name = website_name
 	# Download the built application and unzip it to the app directory.
-	windows_zipfile site_directory do
+	windows_zipfile website_directory do
 	  source website_source
 	  action :unzip
-	  not_if { ::File.exists?(site_directory) }
+	  not_if { ::File.exists?(website_directory) }
 	end
 
 	# Create the site app pool.
@@ -24,7 +24,7 @@ action :add do
 	end
 
 	# Create the site directory and give IIS_IUSRS read rights.
-	directory site_directory do
+	directory website_directory do
 	  rights :read, 'IIS_IUSRS'
 	  recursive true
 	  action :create
@@ -34,7 +34,7 @@ action :add do
 	iis_site website_name do
 	  protocol protocol
 	  port port
-	  path site_directory
+	  path website_directory
 	  application_pool website_name
 	  host_header host_header
 	  action [:add, :start]

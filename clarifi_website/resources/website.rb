@@ -1,4 +1,5 @@
 actions :add
+default_action :add
 
 attribute :website_name, :name_attribute => true, :kind_of => String, :required => true
 attribute :website_source, :kind_of => String

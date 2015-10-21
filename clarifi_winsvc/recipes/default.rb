@@ -10,7 +10,7 @@ site_source = node['tmc']['site_source']
 
 
 # Create the app site.
-clarifi_winsvc_winservice site_name do
+clarifi_winsvc_website site_name do
   website_source site_source
   action :add
 end

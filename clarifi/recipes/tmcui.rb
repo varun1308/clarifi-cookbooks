@@ -9,8 +9,7 @@
 #search for tmcui app
 app = search(:aws_opsworks_app, "deploy:true").find({|x| x[:shortname] == "tmcui"}) rescue nil
 
-if app? 
-
+if app
 	Chef::Log.info "Found #{app[:shortname]} to deploy on the stack. Assuming tmcui app is same."
 
 	tavisca_apps_website node['tmcui']['site_name'] do
@@ -22,4 +21,6 @@ if app?
 	  scm app["app_source"]
 	  action :add
 	end
+else
+	Chef::Log.info "tmcui app not found in apps to deploy."
 end

@@ -1,3 +1,5 @@
+use_inline_resources
+
 action :add do
 	
 	website_directory = "#{website_base_directory}\\#{website_name}"

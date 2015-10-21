@@ -10,6 +10,9 @@ action :sync do
 
     ssh_wrapper_path = ::File.join(Chef::Config["file_cache_path"], "opsworks_scm_checkout")
 
+    Chef::Log.info "ssh_wrapper_path: #{ssh_wrapper_path}."
+    Chef::Log.info "new_resource.destination: #{new_resource.destination}."
+
     directory "#{new_resource.destination}-delete" do
       path new_resource.destination
       action :delete
@@ -23,6 +26,7 @@ action :sync do
       rights :full_control, "Administrators", :applies_to_children => true, :applies_to_self => true
       inherits false
     end
+
 
     case new_resource.type
     when "git"
@@ -77,10 +81,17 @@ action :sync do
         end
       end
     when "s3"
+    
+      Chef::Log.info "RECOGNIZED s3 resource."
+
       bucket, remote_path = OpsWorks::SCM::S3.parse_uri(new_resource.repository)
       filename = remote_path.split("/")[-1]
       local_file = ::File.join(new_resource.destination, filename)
 
+      Chef::Log.info "bucket: #{bucket}"
+      Chef::Log.info "filename: #{filename}"
+      Chef::Log.info "local_file: #{local_file}"
+      
       s3_file local_file do
         bucket bucket
         remote_path remote_path

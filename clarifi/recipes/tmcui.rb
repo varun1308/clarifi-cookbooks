@@ -7,8 +7,8 @@
 # Create the app site.
 
 #search for tmcui app
-apps = search(:aws_opsworks_app, "deploy:true")
-app = search(:aws_opsworks_app, "deploy:true").find {|x| x[:shortname] == "tmcui"}
+apps = search(:aws_opsworks_app, "deploy:true") rescue []
+app = apps.find {|x| x[:shortname] == "tmc"}
 Chef::Log.info "Found #{apps} to deploy on the stack."
 if app
 	Chef::Log.info "Found #{app[:shortname]} to deploy on the stack. Assuming tmcui app is same."

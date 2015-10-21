@@ -6,4 +6,4 @@ description 'Installs/Configures tmc'
 long_description 'Installs/Configures tmc'
 version '0.1.0'
 
-depends 'clarifi_website'
+depends 'iis', '~> 4.1.1'

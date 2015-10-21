@@ -2,18 +2,18 @@ use_inline_resources
 
 action :add do
 	
-	website_directory = "#{website_base_directory}\\#{website_name}"
+	website_directory = "#{newresource.website_base_directory}\\#{newresource.website_name}"
 	
-	app_pool_name = website_name
+	app_pool_name = newresource.website_name
 	# Download the built application and unzip it to the app directory.
 	windows_zipfile website_directory do
-	  source website_source
+	  source newresource.website_source
 	  action :unzip
 	  not_if { ::File.exists?(website_directory) }
 	end
 
 	# Create the site app pool.
-	iis_pool  website_name do
+	iis_pool  newresource.website_name do
 	  runtime_version '4.0'
 	  action :add
 	end
@@ -26,12 +26,12 @@ action :add do
 	end
 
 	# Create the app site.
-	iis_site website_name do
-	  protocol protocol
-	  port port
+	iis_site newresource.website_name do
+	  protocol newresource.protocol
+	  port newresource.port
 	  path website_directory
-	  application_pool website_name
-	  host_header host_header
+	  application_pool newresource.website_name
+	  host_header newresource.host_header
 	  action [:add, :start]
 	end	
 end

@@ -12,7 +12,7 @@ site_source = node['tmc']['site_source']
 
 
 # Create the app site.
-iis_website_website site_name do
+clarifi_website_website site_name do
   website_source site_source
   action :add
 end

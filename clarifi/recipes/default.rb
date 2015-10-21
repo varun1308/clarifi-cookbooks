@@ -7,3 +7,4 @@
 Chef::Log.level = :debug
 include_recipe 'tavisca_apps::iis_install'
 include_recipe 'tmcui'
+include_recipe 'roomstd'

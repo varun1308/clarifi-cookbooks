@@ -23,16 +23,7 @@ action :add do
 	execute "copy #{new_resource.website_name}" do
 		command "Robocopy.exe #{app_checkout} #{website_directory} /MIR /XF .gitignore /XF web.config.erb /XD .git"
 	end
-
-	# unzip file commented
-	=begin
-	windows_zipfile website_directory do
-	  source new_resource.website_source
-	  action :unzip
-	  not_if { ::File.exists?(website_directory) }
-	end
-	=end
-
+	
 	# Create the site app pool.
 	iis_pool  new_resource.website_name do
 	  runtime_version new_resource.runtime_version

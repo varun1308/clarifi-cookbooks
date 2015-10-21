@@ -1,6 +1,6 @@
-default['tmc']['site_name'] = 'clarifi'
-default['tmc']['site_source'] = nil
-default['tmc']['host_header'] = nil
-default['tmc']['port'] = 80
-default['tmc']['protocol'] = :http
-default['tmc']['site_base_directory'] = "#{ENV['SYSTEMDRIVE']}\\inetpub\\wwwroot"
+default['clarifi_winsvc']['site_name'] = 'clarifi'
+default['clarifi_winsvc']['site_source'] = nil
+default['clarifi_winsvc']['host_header'] = nil
+default['clarifi_winsvc']['port'] = 80
+default['clarifi_winsvc']['protocol'] = :http
+default['clarifi_winsvc']['site_base_directory'] = "#{ENV['SYSTEMDRIVE']}\\inetpub\\wwwroot"

@@ -5,8 +5,8 @@
 # Copyright (c) 2015 The Authors, All Rights Reserved.
 
 Chef::Log.level = :debug
-site_name = node['tmc']['site_name']
-site_source = node['tmc']['site_source']
+site_name = node['clarifi_winsvc']['site_name']
+site_source = node['clarifi_winsvc']['site_source']
 
 
 # Create the app site.

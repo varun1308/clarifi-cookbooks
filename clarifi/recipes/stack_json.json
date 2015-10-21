@@ -6,5 +6,9 @@
 	"room_std_website" : {
 	"site_name" : "roomstd",
 	"site_source" : "https://s3-us-west-2.amazonaws.com/varun-iis-cookbook/roomstd.zip"
+	},
+	"tasks_winsvc" : {
+	"service_name" : "ContentManagementService",
+	"service_source" : "https://s3-us-west-2.amazonaws.com/varun-iis-cookbook/tasks.zip"
 	}
 }

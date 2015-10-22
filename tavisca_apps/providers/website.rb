@@ -1,4 +1,7 @@
 use_inline_resources
+# include Windows::Helper from Opscode Windows Cookbook
+::Chef::Recipe.send(:include, Windows::Helper)
+include Windows::Helper
 
 action :add do
 	

@@ -3,6 +3,8 @@ def whyrun_supported?
 end
 
 use_inline_resources
+include Windows::Helper
+
 
 action :sync do
   # always converge - used scm resource (git, s3) will handle it
@@ -86,7 +88,7 @@ action :sync do
 
       s3_url, bucket, remote_path = OpsWorks::SCM::S3.parse_uri(new_resource.repository)
       filename = remote_path.split("/")[-1]
-      local_file = ::File.join(new_resource.destination, filename)
+      local_file = win_friendly_path(::File.join(new_resource.destination, filename))
 
       Chef::Log.info "bucket: #{bucket}"
       Chef::Log.info "filename: #{filename}"

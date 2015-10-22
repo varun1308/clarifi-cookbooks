@@ -91,12 +91,18 @@ action :sync do
       Chef::Log.info "bucket: #{bucket}"
       Chef::Log.info "filename: #{filename}"
       Chef::Log.info "local_file: #{local_file}"
+      s3_url = "https://" + s3_url + "/" + bucket
       Chef::Log.info "s3_url: #{s3_url}"
+      Chef::Log.info "platform_family: #{platform_family}"
+      Chef::Log.info "remote_path: #{remote_path}"
+      Chef::Log.info "new_resource.user: #{new_resource.user}"
+      Chef::Log.info "new_resource.password: #{new_resource.password}"
+
       
       s3_file local_file do
         bucket bucket
         remote_path remote_path
-        s3_url "https://" + s3_url + "/" + bucket
+        s3_url s3_url
         aws_access_key_id new_resource.user
         aws_secret_access_key new_resource.password
         if platform_family?("windows")

@@ -88,7 +88,12 @@ action :create do
 
       ::FileUtils.mv(decrypted_file.path, new_resource.path)
     else
-      ::FileUtils.mv(response.file.path, new_resource.path)
+      Chef::Log.debug "moving file path #{response.file.path} to #{new_resource.path}"
+
+      ::FileUtils.mv(response.file.path, new_resource.path, :verbose => true)
+
+      Chef::Log.debug "moved file path #{response.file.path} to #{new_resource.path}"
+
     end
   end
 
@@ -98,6 +103,8 @@ action :create do
     group new_resource.group || ENV['user']
     mode new_resource.mode || '0644'
   end
+      
+  Chef::Log.debug "file command response #{f}"
 
   new_resource.updated_by_last_action(download || f.updated_by_last_action?)
 end

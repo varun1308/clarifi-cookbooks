@@ -17,6 +17,9 @@ action :create do
   token = new_resource.token
   decryption_key = new_resource.decryption_key
 
+  Chef::Log.debug "Inside s3_file: found params: #{new_resource}"
+
+
   # if credentials not set, try instance profile
   if aws_access_key_id.nil? && aws_secret_access_key.nil? && token.nil?
     instance_profile_base_url = 'http://169.254.169.254/latest/meta-data/iam/security-credentials/'
@@ -62,7 +65,12 @@ action :create do
   end
 
   if download
+
+    Chef::Log.debug "Inside s3_file: downloading..."
+
     response = S3FileLib::get_from_s3(new_resource.bucket, new_resource.s3_url, remote_path, aws_access_key_id, aws_secret_access_key, token)
+
+    Chef::Log.debug "Inside s3_file: response found: #{response}"
 
     # not simply using the file resource here because we would have to buffer
     # whole file into memory in order to set content this solves

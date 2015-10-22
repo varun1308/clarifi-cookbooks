@@ -16,7 +16,7 @@ module OpsWorks
         bucket = uri_path_components[0]
         remote_path = uri_path_components[1..-1].join("/")
         
-        [bucket, remote_path]
+        [virtual_host_match[0], bucket, remote_path]
       end
     end
   end

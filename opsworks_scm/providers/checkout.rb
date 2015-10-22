@@ -84,17 +84,19 @@ action :sync do
     
       Chef::Log.info "RECOGNIZED s3 resource: #{new_resource.repository}"
 
-      bucket, remote_path = OpsWorks::SCM::S3.parse_uri(new_resource.repository)
+      s3_url, bucket, remote_path = OpsWorks::SCM::S3.parse_uri(new_resource.repository)
       filename = remote_path.split("/")[-1]
       local_file = ::File.join(new_resource.destination, filename)
 
       Chef::Log.info "bucket: #{bucket}"
       Chef::Log.info "filename: #{filename}"
       Chef::Log.info "local_file: #{local_file}"
+      Chef::Log.info "s3_url: #{s3_url}"
       
       s3_file local_file do
         bucket bucket
         remote_path remote_path
+        s3_url s3_url
         aws_access_key_id new_resource.user
         aws_secret_access_key new_resource.password
         if platform_family?("windows")

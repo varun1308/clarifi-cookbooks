@@ -1,7 +1,4 @@
 use_inline_resources
-# include Windows::Helper from Opscode Windows Cookbook
-::Chef::Recipe.send(:include, Windows::Helper)
-include Windows::Helper
 
 action :add do
 	
@@ -10,7 +7,7 @@ action :add do
 	app_pool_name = new_resource.website_name
 	# Download the built application and unzip it to the app directory.
 
-	app_checkout = win_friendly_path(::File.join(Chef::Config["file_cache_path"], new_resource.website_name))
+	app_checkout = Chef::Config["file_cache_path"]
 
 	Chef::Log.info "Downloading app source file using info #{new_resource.scm}."
 

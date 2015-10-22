@@ -96,7 +96,7 @@ action :sync do
       s3_file local_file do
         bucket bucket
         remote_path remote_path
-        s3_url s3_url
+        s3_url s3_url + "/" + bucket
         aws_access_key_id new_resource.user
         aws_secret_access_key new_resource.password
         if platform_family?("windows")

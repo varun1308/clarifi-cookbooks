@@ -15,7 +15,7 @@ action :add do
 	    destination      app_checkout
 	    repository       new_resource.scm[:url]
 	    revision         new_resource.scm[:revision]
-	    user             new_resource.scm[:username]
+	    user             new_resource.scm[:user]
 	    password         new_resource.scm[:password]
 	    ssh_key          new_resource.scm[:ssh_key]
 	    type             new_resource.scm[:type]

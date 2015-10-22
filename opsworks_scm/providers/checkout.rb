@@ -82,7 +82,7 @@ action :sync do
       end
     when "s3"
     
-      Chef::Log.info "RECOGNIZED s3 resource."
+      Chef::Log.info "RECOGNIZED s3 resource: #{new_resource.repository}"
 
       bucket, remote_path = OpsWorks::SCM::S3.parse_uri(new_resource.repository)
       filename = remote_path.split("/")[-1]

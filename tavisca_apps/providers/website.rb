@@ -7,7 +7,7 @@ action :add do
 	app_pool_name = new_resource.website_name
 	# Download the built application and unzip it to the app directory.
 
-	app_checkout = ::File.join(Chef::Config["file_cache_path"], new_resource.website_name)
+	app_checkout = win_friendly_path(::File.join(Chef::Config["file_cache_path"], new_resource.website_name))
 
 	Chef::Log.info "Downloading app source file using info #{new_resource.scm}."
 

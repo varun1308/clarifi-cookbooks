@@ -99,7 +99,7 @@ action :sync do
       
       if platform_family?("windows")
         Chef::Log.info "platform_family: windows"
-
+      end
       
       s3_file local_file do
         bucket bucket

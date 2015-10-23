@@ -40,13 +40,7 @@ module S3FileLib
   end
 
   def self.get_from_s3(bucket,url,path,aws_access_key_id,aws_secret_access_key,token)
-    Chef::Log.debug "Inside module S3FileLib: found params: bucket: #{bucket},
-    url: #{url},
-    path: #{path},
-    aws_access_key_id: #{aws_access_key_id},
-    aws_secret_access_key: #{aws_secret_access_key},
-    token: #{token}"
-
+    
     client = self.client
     now, auth_string = get_s3_auth("GET", bucket,path,aws_access_key_id,aws_secret_access_key, token)
 

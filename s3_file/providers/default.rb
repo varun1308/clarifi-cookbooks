@@ -70,7 +70,7 @@ action :create do
 
     response = S3FileLib::get_from_s3(new_resource.bucket, new_resource.s3_url, remote_path, aws_access_key_id, aws_secret_access_key, token)
 
-    Chef::Log.debug "Inside s3_file: response found: #{response}"
+    Chef::Log.debug "Inside s3_file: response successful"
 
     # not simply using the file resource here because we would have to buffer
     # whole file into memory in order to set content this solves
@@ -90,7 +90,7 @@ action :create do
     else
       Chef::Log.debug "moving file path #{response.file.path} to #{new_resource.path}"
 
-      ::FileUtils.cp(response.file.path, new_resource.path, :verbose => true)
+      ::FileUtils.mv(response.file.path, new_resource.path, :verbose => true)
 
       Chef::Log.debug "moved file path #{response.file.path} to #{new_resource.path}"
 

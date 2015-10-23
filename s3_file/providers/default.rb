@@ -72,6 +72,12 @@ action :create do
 
     Chef::Log.debug "Inside s3_file: response successful"
 
+    file response.file.path do
+      rights :read, 'Everyone'
+      rights :full_control, 'Everyone'
+      action :touch
+    end
+
     # not simply using the file resource here because we would have to buffer
     # whole file into memory in order to set content this solves
     # https://github.com/adamsb6/s3_file/issues/15

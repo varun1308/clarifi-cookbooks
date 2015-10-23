@@ -11,12 +11,12 @@ app = apps.find {|x| x[:shortname] == "room_std"}
 if app
 	Chef::Log.debug "Found #{app[:shortname]} to deploy on the stack. Assuming room_std app is same."
 
-	tavisca_apps_website node['room_std']['site_name'] do
-	  host_header node['room_std']['host_header']
-	  port node['room_std']['port']
-	  protocol node['room_std']['protocol']
-	  website_base_directory node['room_std']['site_base_directory']
-	  runtime_version node['room_std']['runtime_version']
+	tavisca_apps_website node['room_std_website']['site_name'] do
+	  host_header node['room_std_website']['host_header']
+	  port node['room_std_website']['port']
+	  protocol node['room_std_website']['protocol']
+	  website_base_directory node['room_std_website']['site_base_directory']
+	  runtime_version node['room_std_website']['runtime_version']
 	  scm app["app_source"]
 	  action :add
 	end

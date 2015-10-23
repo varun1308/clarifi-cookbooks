@@ -27,12 +27,16 @@ action :add do
   	#check if file needs to be replaced
   	if new_resource.should_replace_web_config && new_resource.new_web_config.empty? == false
   		
-  		Chef::Log.debug "old web.config filepath: #{app_checkout}\\web.config"
+  		if File.exist?("#{app_checkout}\\web.config")
+  			Chef::Log.debug "old web.config filepath: #{app_checkout}\\web.config. exists"
+  		else
+  			Chef::Log.debug "old web.config filepath: #{app_checkout}\\web.config does not exist "
+		end
   		#remove old web.config
   		# ::FileUtils.rm "#{app_checkout}\\web.config", :force => true
 
   		#move the new.web.config file to web.config
-  		::FileUtils.mv "#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config", { :force => true, :verbose => true }
+  		#::FileUtils.mv "#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config", { :force => true, :verbose => true }
 
   	elsif new_resource.web_erb_config.empty? == false #if erb file is defined
   		#apply template to create web.config

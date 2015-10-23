@@ -90,7 +90,7 @@ action :create do
     else
       Chef::Log.debug "moving file path #{response.file.path} to #{new_resource.path}"
 
-      ::FileUtils.mv(response.file.path, new_resource.path, :verbose => true)
+      ::FileUtils.cp(response.file.path, new_resource.path, :verbose => true)
 
       Chef::Log.debug "moved file path #{response.file.path} to #{new_resource.path}"
 

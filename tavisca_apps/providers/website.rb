@@ -21,9 +21,15 @@ action :add do
 	    type             new_resource.scm[:type]
   	end
 
+  	if new_resource.should_replace_web_config
+  		::FileUtils.mv("#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config", :force => true)
+  	end
+
+
   		# Copy app to deployment directory
 	execute "copy #{new_resource.website_name}" do
 		command "Robocopy.exe #{app_checkout} #{website_directory} /MIR /XF .gitignore /XF web.config.erb /XD .git"
+		returns [0, 1]
 	end
 	
 	# Create the site app pool.

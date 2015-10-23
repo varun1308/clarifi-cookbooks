@@ -27,9 +27,9 @@ action :add do
 		returns [0, 1]
 	end
 
-	if new_resource.should_replace_web_config
-  		::FileUtils.mv("#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config", :force => true)
-  	end
+	# if new_resource.should_replace_web_config
+ #  		::FileUtils.mv("#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config", :force => true)
+ #  	end
 
 	
 	# Create the site app pool.

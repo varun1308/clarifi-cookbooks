@@ -3,6 +3,7 @@ default['tmcui']['host_header'] = 'tmc.clarifi.io'
 default['tmcui']['port'] = 80
 default['tmcui']['protocol'] = :http
 default['tmcui']['site_base_directory'] = "#{ENV['SYSTEMDRIVE']}\\inetpub\\wwwroot"
+default['tmcui']['local_file'] = 'c:/Windows/Temp/tmc.zip'
 
 default['room_std_website']['site_name'] = 'roomstd'
 default['room_std_website']['site_source'] = nil

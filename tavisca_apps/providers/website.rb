@@ -29,7 +29,7 @@ action :add do
   		
   		Chef::Log.debug "old web.config filepath: #{app_checkout}\\web.config"
   		#remove old web.config
-  		::FileUtils.rm "#{app_checkout}\\web.config", :force
+  		::FileUtils.rm "#{app_checkout}\\web.config", :force => true
 
   		#move the new.web.config file to web.config
   		::FileUtils.mv "#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config"
@@ -46,11 +46,11 @@ action :add do
   	# Copy app to deployment directory
 
   	#delete destination dir
-  	::FileUtils.rm_r "#{website_directory}", :force
+  	::FileUtils.rm_r "#{website_directory}", :force => true
   	#copy source dir to base dir
 	::FileUtils.cp_r "#{app_checkout}", "#{new_resource.website_base_directory}"
 	#delete source dir
-  	::FileUtils.rm_r "#{app_checkout}", :force
+  	::FileUtils.rm_r "#{app_checkout}", :force => true
 
 
 	# execute "copy #{new_resource.website_name}" do

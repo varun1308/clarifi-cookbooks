@@ -32,12 +32,8 @@ action :add do
  #  	end
 
 	if new_resource.should_replace_web_config
-		remote_file "Copy web.config file" do 
-		  path "#{website_directory}\\web.config"
-		  source "#{website_directory}\\#{new_resource.new_web_config}"
-		  rights :read, 'IIS_IUSRS'
-		  mode 0755
-		end
+		::FileUtils.mv "#{website_directory}\\#{new_resource.new_web_config}", "#{website_directory}\\web.config", :force => true
+		
 	end
 
 	

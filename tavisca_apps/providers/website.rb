@@ -31,16 +31,16 @@ action :add do
  #  		::FileUtils.mv("#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config", :force => true)
  #  	end
 
-	if new_resource.should_replace_web_config
-		Chef::Log.debug "Moving file #{new_resource.new_web_config}."
+	# if new_resource.should_replace_web_config
+	# 	Chef::Log.debug "Moving file #{new_resource.new_web_config}."
 
-		::FileUtils.mv "#{website_directory}\\#{new_resource.new_web_config}", "#{website_directory}\\web.config"
+	# 	::FileUtils.mv "#{website_directory}\\#{new_resource.new_web_config}", "#{website_directory}\\web.config"
 		
-		Chef::Log.debug "Moved file #{new_resource.new_web_config}."
-	else
-		Chef::Log.debug "Did not find replace web config parameter."
+	# 	Chef::Log.debug "Moved file #{new_resource.new_web_config}."
+	# else
+	# 	Chef::Log.debug "Did not find replace web config parameter."
 
-	end
+	# end
 
 	
 	# Create the site app pool.

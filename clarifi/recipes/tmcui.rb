@@ -14,14 +14,14 @@ app = apps.find {|x| x[:shortname] == "tmc"}
 if app
 	Chef::Log.info "Found #{app[:shortname]} to deploy on the stack. Assuming tmcui app is same."
 
-	s3_file 'c:\\test\\tmc.zip' do
-        bucket 'varun-iis-cookbook'
-        remote_path 'tmc.zip'
-        s3_url 'https://s3-us-west-2.amazonaws.com/varun-iis-cookbook'
-        aws_access_key_id app["app_source"][:user]
-        aws_secret_access_key app["app_source"][:password]
-        retries 2
-      end
+	# s3_file 'c:\\test\\tmc.zip' do
+ #        bucket 'varun-iis-cookbook'
+ #        remote_path 'tmc.zip'
+ #        s3_url 'https://s3-us-west-2.amazonaws.com/varun-iis-cookbook'
+ #        aws_access_key_id app["app_source"][:user]
+ #        aws_secret_access_key app["app_source"][:password]
+ #        retries 2
+ #    end
 
 	# tavisca_apps_website node['tmcui']['site_name'] do
 	#   host_header node['tmcui']['host_header']

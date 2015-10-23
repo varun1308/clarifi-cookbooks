@@ -22,7 +22,7 @@ if app
 	  runtime_version node['tmcui']['runtime_version']
 	  scm app["app_source"]
 	  should_replace_web_config true
-	  new_web_config 'web.prod.config'
+	  new_web_config 'Web.Prod.config'
 	  action :add
 	end
 else

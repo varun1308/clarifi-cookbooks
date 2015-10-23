@@ -12,9 +12,6 @@ action :sync do
 
     ssh_wrapper_path = ::File.join(Chef::Config["file_cache_path"], "opsworks_scm_checkout")
 
-    Chef::Log.info "ssh_wrapper_path: #{ssh_wrapper_path}."
-    Chef::Log.info "new_resource.destination: #{new_resource.destination}."
-
     directory "#{new_resource.destination}-delete" do
       path new_resource.destination
       action :delete
@@ -84,20 +81,11 @@ action :sync do
       end
     when "s3"
     
-      Chef::Log.info "RECOGNIZED s3 resource: #{new_resource.repository}"
-
       s3_url, bucket, remote_path = OpsWorks::SCM::S3.parse_uri(new_resource.repository)
       filename = remote_path.split("/")[-1]
       local_file = win_friendly_path(::File.join(new_resource.destination, filename))
 
-      Chef::Log.info "bucket: #{bucket}"
-      Chef::Log.info "filename: #{filename}"
-      Chef::Log.info "local_file: #{local_file}"
       s3_url = "https://" + s3_url + "/" + bucket
-      Chef::Log.info "s3_url: #{s3_url}"
-      Chef::Log.info "remote_path: #{remote_path}"
-      Chef::Log.info "new_resource.user: #{new_resource.user}"
-      Chef::Log.info "new_resource.password: #{new_resource.password}"
       
       if platform_family?("windows")
         Chef::Log.info "platform_family: windows"

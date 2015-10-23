@@ -17,9 +17,6 @@ action :create do
   token = new_resource.token
   decryption_key = new_resource.decryption_key
 
-  Chef::Log.debug "Inside s3_file: found params: #{new_resource}"
-
-
   # if credentials not set, try instance profile
   if aws_access_key_id.nil? && aws_secret_access_key.nil? && token.nil?
     instance_profile_base_url = 'http://169.254.169.254/latest/meta-data/iam/security-credentials/'
@@ -65,19 +62,14 @@ action :create do
   end
 
   if download
-
-    Chef::Log.debug "Inside s3_file: downloading..."
-
     response = S3FileLib::get_from_s3(new_resource.bucket, new_resource.s3_url, remote_path, aws_access_key_id, aws_secret_access_key, token)
-
-    Chef::Log.debug "Inside s3_file: response successful"
 
     file response.file.path do
       rights :read, 'Everyone'
       rights :full_control, 'Everyone'
       action :touch
     end
-
+    
     # not simply using the file resource here because we would have to buffer
     # whole file into memory in order to set content this solves
     # https://github.com/adamsb6/s3_file/issues/15
@@ -94,16 +86,9 @@ action :create do
 
       ::FileUtils.mv(decrypted_file.path, new_resource.path)
     else
-      Chef::Log.debug "moving file path #{response.file.path} to #{new_resource.path}"
-
-      ::FileUtils.mv(response.file.path, new_resource.path, :verbose => true)
-
-      Chef::Log.debug "moved file path #{response.file.path} to #{new_resource.path}"
-
+      ::FileUtils.mv(response.file.path, new_resource.path)
     end
   end
-
-      Chef::Log.debug "User in Env: #{ENV['user']}"
 
   # f = file new_resource.path do
   #   action :create
@@ -111,8 +96,6 @@ action :create do
   #   group new_resource.group || ENV['user']
   #   mode new_resource.mode || '0644'
   # end
-      
-  # Chef::Log.debug "file command response #{f}"
 
   new_resource.updated_by_last_action(download || f.updated_by_last_action?)
 end

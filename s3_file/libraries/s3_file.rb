@@ -40,16 +40,12 @@ module S3FileLib
   end
 
   def self.get_from_s3(bucket,url,path,aws_access_key_id,aws_secret_access_key,token)
-    
     client = self.client
     now, auth_string = get_s3_auth("GET", bucket,path,aws_access_key_id,aws_secret_access_key, token)
 
     url = "https://#{bucket}.s3.amazonaws.com" if url.nil?
     
-    Chef::Log.debug "Inside module S3FileLib: url: #{url}"
     headers = build_headers(now, auth_string, token)
-    Chef::Log.debug "Inside module S3FileLib: headers: #{headers}. downloading url: #{url}#{path}"
-
     retries = 5
     for attempts in 0..5
       begin
@@ -84,7 +80,6 @@ module S3FileLib
     signed_base64 = Base64.encode64(signed)
 
     auth_string = 'AWS %s:%s' % [aws_access_key_id,signed_base64]
-    Chef::Log.debug "Inside module S3FileLib: auth_string: #{auth_string}"
         
     [now,auth_string]
   end

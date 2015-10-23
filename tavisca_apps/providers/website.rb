@@ -32,8 +32,14 @@ action :add do
  #  	end
 
 	if new_resource.should_replace_web_config
-		::FileUtils.mv "#{website_directory}\\#{new_resource.new_web_config}", "#{website_directory}\\web.config", :force => true
+		Chef::Log.debug "Moving file #{new_resource.new_web_config}."
+
+		::FileUtils.mv "#{website_directory}\\#{new_resource.new_web_config}", "#{website_directory}\\web.config"
 		
+		Chef::Log.debug "Moved file #{new_resource.new_web_config}."
+	else
+		Chef::Log.debug "Did not find replace web config parameter."
+
 	end
 
 	

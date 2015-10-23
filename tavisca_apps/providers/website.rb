@@ -14,7 +14,7 @@ action :add do
 	end
 	app_checkout = Chef::Config["file_cache_path"] + "\\#{new_resource.website_name}"
 
-	Chef::Log.info "Downloading app source file using info #{new_resource.scm}."
+	Chef::Log.debug "Downloading app source file using info #{new_resource.scm}."
 
 	opsworks_scm_checkout new_resource.website_name do
 	    destination      app_checkout

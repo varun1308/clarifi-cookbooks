@@ -23,7 +23,7 @@ action :add do
 
   	#apply web.configchanges
   	#check if file needs to be replaced
-  	if new_resource.should_replace_web_config && !new_resource.new_web_config.empty?
+  	if new_resource.should_replace_web_config && new_resource.new_web_config.empty? == false
   		
   		#remove old web.config
   		::FileUtils.rm "#{app_checkout}\\web.config", :force
@@ -31,7 +31,7 @@ action :add do
   		#move the new.web.config file to web.config
   		::FileUtils.mv "#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config"
 
-  	elsif !new_resource.web_erb_config.empty? #if erb file is defined
+  	elsif new_resource.web_erb_config.empty? == false #if erb file is defined
   		#apply template to create web.config
   		template "#{app_checkout}\\web.config" do
   		  local true

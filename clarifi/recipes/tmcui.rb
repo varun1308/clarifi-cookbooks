@@ -21,6 +21,8 @@ if app
 	  website_base_directory node['tmcui']['site_base_directory']
 	  runtime_version node['tmcui']['runtime_version']
 	  scm app["app_source"]
+	  should_replace_web_config true
+	  new_web_config 'web.prod.config'
 	  action :add
 	end
 else

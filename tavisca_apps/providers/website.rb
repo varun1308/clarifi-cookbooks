@@ -21,10 +21,38 @@ action :add do
 	    type             new_resource.scm[:type]
   	end
 
-  		# Copy app to deployment directory
-	execute "copy #{new_resource.website_name}" do
-		command "Robocopy.exe #{app_checkout} #{website_directory} /MIR /XF .gitignore /XF web.config.erb /XD .git"
-	end
+  	#apply web.configchanges
+  	#check if file needs to be replaced
+  	if new_resource.should_replace_web_config? && new_resource.new_web_config?
+  		
+  		#remove old web.config
+  		::FileUtils.rm "#{app_checkout}\\web.config", :force
+
+  		#move the new.web.config file to web.config
+  		::FileUtils.mv "#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config"
+
+  	elsif new_resource.web_erb_config? #if erb file is defined
+  		#apply template to create web.config
+  		template "#{app_checkout}\\web.config" do
+  		  local true
+		  source "#{new_resource.web_erb_config}"
+		  mode '0755'
+		end
+  	end
+
+  	# Copy app to deployment directory
+
+  	#delete destination dir
+  	::FileUtils.rm_r "#{website_directory}", :force
+  	#copy source dir to base dir
+	::FileUtils.cp_r "#{app_checkout}", "#{new_resource.website_base_directory}"
+	#delete source dir
+  	::FileUtils.rm_r "#{app_checkout}", :force
+
+
+	# execute "copy #{new_resource.website_name}" do
+	# 	command "Robocopy.exe #{app_checkout} #{website_directory} /MIR /XF .gitignore /XF web.config.erb /XD .git"
+	# end
 	
 	# Create the site app pool.
 	iis_pool  new_resource.website_name do
@@ -37,6 +65,8 @@ action :add do
 	  recursive true
 	  action :create
 	end
+
+
 
 	# Create the app site.
 	iis_site new_resource.website_name do

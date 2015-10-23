@@ -1,5 +1,7 @@
 use_inline_resources
 
+require 'fileutils'
+
 action :add do
 	
 	website_directory = "#{new_resource.website_base_directory}\\#{new_resource.website_name}"
@@ -25,6 +27,7 @@ action :add do
   	#check if file needs to be replaced
   	if new_resource.should_replace_web_config && new_resource.new_web_config.empty? == false
   		
+  		Chef::Log.debug "old web.config filepath: #{app_checkout}\\web.config"
   		#remove old web.config
   		::FileUtils.rm "#{app_checkout}\\web.config", :force
 

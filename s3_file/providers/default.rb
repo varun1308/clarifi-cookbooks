@@ -103,14 +103,16 @@ action :create do
     end
   end
 
-  f = file new_resource.path do
-    action :create
-    owner new_resource.owner || ENV['user']
-    group new_resource.group || ENV['user']
-    mode new_resource.mode || '0644'
-  end
+      Chef::Log.debug "User in Env: #{ENV['user']}"
+
+  # f = file new_resource.path do
+  #   action :create
+  #   owner new_resource.owner || ENV['user']
+  #   group new_resource.group || ENV['user']
+  #   mode new_resource.mode || '0644'
+  # end
       
-  Chef::Log.debug "file command response #{f}"
+  # Chef::Log.debug "file command response #{f}"
 
   new_resource.updated_by_last_action(download || f.updated_by_last_action?)
 end

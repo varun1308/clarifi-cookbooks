@@ -31,6 +31,15 @@ action :add do
  #  		::FileUtils.mv("#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config", :force => true)
  #  	end
 
+	if new_resource.should_replace_web_config
+		remote_file "Copy web.config file" do 
+		  path "#{website_directory}\\web.config"
+		  source "#{website_directory}\\#{new_resource.new_web_config}"
+		  rights :read, 'IIS_IUSRS'
+		  mode 0755
+		end
+	end
+
 	
 	# Create the site app pool.
 	iis_pool  new_resource.website_name do

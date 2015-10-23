@@ -12,7 +12,7 @@ action :add do
 	  recursive true
 	  action :create
 	end
-	app_checkout = Chef::Config["file_cache_path"]
+	app_checkout = Chef::Config["file_cache_path"] + "\\#{new_resource.website_name}"
 
 	Chef::Log.info "Downloading app source file using info #{new_resource.scm}."
 

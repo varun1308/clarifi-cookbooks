@@ -9,5 +9,5 @@ tavisca_apps_winservice node['tasks_winsvc']['service_name'] do
   service_source node['tasks_winsvc']['service_source']
   service_executable_with_args node['tasks_winsvc']['service_executable_with_args']
   service_start node['tasks_winsvc']['service_start']
-  action [:install, :start]
+  action :install		#action [:install, :start]
 end

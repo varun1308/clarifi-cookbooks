@@ -32,7 +32,7 @@ action :add do
   		::FileUtils.rm "#{app_checkout}\\web.config", :force => true
 
   		#move the new.web.config file to web.config
-  		::FileUtils.mv "#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config"
+  		::FileUtils.mv "#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config", :force => true
 
   	elsif new_resource.web_erb_config.empty? == false #if erb file is defined
   		#apply template to create web.config

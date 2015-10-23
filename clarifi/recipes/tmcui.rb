@@ -14,7 +14,7 @@ app = apps.find {|x| x[:shortname] == "tmc"}
 if app
 	Chef::Log.info "Found #{app[:shortname]} to deploy on the stack. Assuming tmcui app is same."
 
-	s3_file node['tmcui']['site_base_directory'] + "\\" + node['tmcui']['site_name'] + "\\tmc.zip"  do
+	s3_file "tmc.zip"  do
         bucket 'varun-iis-cookbook'
         remote_path 'tmc.zip'
         s3_url 'https://s3-us-west-2.amazonaws.com/varun-iis-cookbook'

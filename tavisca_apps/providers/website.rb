@@ -7,11 +7,6 @@ action :add do
 	app_pool_name = new_resource.website_name
 	# Download the built application and unzip it to the app directory.
 
-	directory website_directory do
-	  rights :read, 'IIS_IUSRS'
-	  recursive true
-	  action :create
-	end
 	app_checkout = Chef::Config["file_cache_path"] + "\\#{new_resource.website_name}"
 
 	Chef::Log.debug "Downloading app source file using info #{new_resource.scm}."

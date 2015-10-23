@@ -62,6 +62,9 @@ action :create do
   end
 
   if download
+    
+    Chef::Log.debug("Downloading file: #{new_resource.s3_url}/#{remote_path}")
+
     response = S3FileLib::get_from_s3(new_resource.bucket, new_resource.s3_url, remote_path, aws_access_key_id, aws_secret_access_key, token)
 
     file response.file.path do
@@ -88,6 +91,8 @@ action :create do
     else
       ::FileUtils.mv(response.file.path, new_resource.path)
     end
+    Chef::Log.debug("Downloading file completed: #{new_resource.s3_url}/#{remote_path}")
+
   end
 
   # f = file new_resource.path do

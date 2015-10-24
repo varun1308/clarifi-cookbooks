@@ -27,12 +27,18 @@ action :add do
 		returns [0, 1]
 	end
 
-	# if new_resource.should_replace_web_config
- #  		::FileUtils.mv("#{app_checkout}\\#{new_resource.new_web_config}", "#{app_checkout}\\web.config", :force => true)
- #  	end
-
+	if new_resource.should_replace_web_config
+		Chef::Log.debug "Moving file #{new_resource.new_web_config}."
+		powershell_script 'copy_web_config' do
+		  code <<-EOH 
+		     Copy-Item "#{website_directory}\\#{new_resource.new_web_config}" "#{website_directory}\\web.config" -Force
+		  EOH
+		end
 	
+	else
+		Chef::Log.debug "Did not find replace web config parameter."
 
+	end
 	
 	# Create the site app pool.
 	iis_pool  new_resource.website_name do
@@ -46,21 +52,7 @@ action :add do
 	  action :create
 	end
 
-	if new_resource.should_replace_web_config
-		Chef::Log.debug "Moving file #{new_resource.new_web_config}."
-		powershell_script 'copy_web_config' do
-		  code <<-EOH 
-		     Copy-Item "#{website_directory}\\#{new_resource.new_web_config}" "#{website_directory}\\web.config" -Force
-		  EOH
-		end
 	
-	# 	::FileUtils.cp "#{website_directory}\\#{new_resource.new_web_config}", "#{website_directory}\\web.config"
-		
-	# 	Chef::Log.debug "Moved file #{new_resource.new_web_config}."
-	else
-		Chef::Log.debug "Did not find replace web config parameter."
-
-	end
 
 	# Create the app site.
 	iis_site new_resource.website_name do

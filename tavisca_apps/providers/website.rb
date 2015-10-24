@@ -48,10 +48,15 @@ action :add do
 
 	if new_resource.should_replace_web_config
 		Chef::Log.debug "Moving file #{new_resource.new_web_config}."
-
-		::FileUtils.cp "#{website_directory}\\#{new_resource.new_web_config}", "#{website_directory}\\web.config"
+		powershell_script 'copy_web_config' do
+		  code <<-EOH 
+		     Copy-Item "#{website_directory}\\#{new_resource.new_web_config}" "#{website_directory}\\web.config" -Force
+		  EOH
+		end
+	
+	# 	::FileUtils.cp "#{website_directory}\\#{new_resource.new_web_config}", "#{website_directory}\\web.config"
 		
-		Chef::Log.debug "Moved file #{new_resource.new_web_config}."
+	# 	Chef::Log.debug "Moved file #{new_resource.new_web_config}."
 	else
 		Chef::Log.debug "Did not find replace web config parameter."
 

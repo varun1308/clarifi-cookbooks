@@ -49,7 +49,7 @@ action :add do
 		# Copy app to deployment directory
 	execute "copy #{new_resource.website_name}" do
 		command "Robocopy.exe #{app_checkout} #{website_directory} /MIR /XF .gitignore /XF web.config.erb /XD .git"
-		returns [0, 1]
+		returns [0, 1, 3]
 	end
 	
 	# Create the site app pool.

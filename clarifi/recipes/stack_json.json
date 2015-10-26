@@ -1,6 +1,12 @@
 {
 	"tmcui" : {
-	"site_name" : "clarifi"
+	"site_name" : "clarifi",
+	"web_config_params" : {
+		"connection_strings" : [
+				{ "name" : "ConfigDb", "conn" : "mongodb://core:27017/dConfig"},
+				{ "name" : "Clarifi", "conn" : "mongodb://core:27017/dClarifiCore"}
+			]
+		}
 	},
 	"room_std_website" : {
 	"site_name" : "roomstd",

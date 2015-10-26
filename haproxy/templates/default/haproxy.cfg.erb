@@ -186,9 +186,9 @@ frontend http-in
   # all domains of IIS applications
   <% node[:haproxy][:iis_applications].each do |app_name, app_config| -%>
     <% app_config['domains'].each do |domain| -%>
-  acl host_weekly_<%= app_name %>_domain_<%= domain.gsub(/[^\w.:-]/, '_') %> hdr_end(host) -i <%= domain %>
+  acl iis_application_<%= app_name %>_domain_<%= domain.gsub(/[^\w.:-]/, '_') %> hdr_end(host) -i <%= domain %>
       <% if app_config['mounted_at'] -%>
-  acl host_weekly_<%= app_name %>_domain_<%= domain.gsub(/[^\w.:-]/, '_') %>_path path_beg <%= app_config['mounted_at'] %>
+  acl iis_application_<%= app_name %>_domain_<%= domain.gsub(/[^\w.:-]/, '_') %>_path path_beg <%= app_config['mounted_at'] %>
       <% end -%>
     <% end -%>
   <% end -%>

@@ -15,3 +15,9 @@ default['tasks_winsvc']['service_name'] = 'ContentManagementService'
 default['tasks_winsvc']['service_source'] = nil
 default['tasks_winsvc']['service_executable_with_args'] = 'Clarifi.ContentManagement.WinService.exe ,1,2,3,4,5,6,7,8,9,D,E,F,G,H,I,J,K,L,M'
 default['tasks_winsvc']['service_start'] = :manual
+
+default['customers']['site_name'] = 'customers'
+default['customers']['host_header'] = 'trip-smart.com'
+default['customers']['port'] = 80
+default['customers']['protocol'] = :http
+default['customers']['site_base_directory'] = "#{ENV['SYSTEMDRIVE']}\\inetpub\\wwwroot"

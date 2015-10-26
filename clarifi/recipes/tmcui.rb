@@ -23,6 +23,7 @@ if app
 	  scm app["app_source"]
 	  should_replace_web_config false
 	  web_erb_config 'Web.config.erb'
+	  web_config_params app["web_config_params"]
 	  action :add
 	end
 else

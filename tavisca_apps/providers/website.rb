@@ -38,6 +38,9 @@ action :add do
 		unless new_resource.web_erb_config.empty? 
 		 	template "#{website_directory}\\web.config" do
 			  source "#{website_directory}\\web_erb_config"
+			  variables(
+			  		:connection_strings => new_resource.web_config_params.connection_strings
+			  	)
 			end
 	 	
 		else

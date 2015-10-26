@@ -12,3 +12,4 @@ attribute :scm, :kind_of => Hash, :required => true
 attribute :new_web_config, :kind_of => String
 attribute :should_replace_web_config, :kind_of => [TrueClass, FalseClass], :default => false
 attribute :web_erb_config, :kind_of => String
+attribute :web_config_params, :kind_of => Hash

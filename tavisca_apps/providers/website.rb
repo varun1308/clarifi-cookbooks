@@ -21,34 +21,35 @@ action :add do
 	    type             new_resource.scm[:type]
   	end
 
-  		# Copy app to deployment directory
-	execute "copy #{new_resource.website_name}" do
-		command "Robocopy.exe #{app_checkout} #{website_directory} /MIR /XF .gitignore /XF web.config.erb /XD .git"
-		returns [0, 1]
-	end
-
+  	
 	if new_resource.should_replace_web_config
 		Chef::Log.debug "Moving file #{new_resource.new_web_config}."
 		powershell_script 'copy_web_config' do
 		  code <<-EOH 
-		     Copy-Item "#{website_directory}\\#{new_resource.new_web_config}" "#{website_directory}\\web.config" -Force
+		     Copy-Item "#{app_checkout}\\#{new_resource.new_web_config}" "#{app_checkout}\\web.config" -Force
 		  EOH
 		end
 	else
 		unless new_resource.web_erb_config.empty? 
 			Chef::Log.debug "web.config params #{new_resource.web_config_params}."
 
-		 	template "#{website_directory}\\web.config" do
+		 	template "#{app_checkout}\\web.config" do
 		 	  local true
-			  source "#{website_directory}\\#{new_resource.web_erb_config}"
+			  source "#{app_checkout}\\#{new_resource.web_erb_config}"
 			  variables(
 			  		:connection_strings => new_resource.web_config_params[:connection_strings]
-			  	)
+			  )
 			end
 	 	
 		else
 			Chef::Log.debug "Did not find any web config replacement configuration."
 		end
+	end
+
+		# Copy app to deployment directory
+	execute "copy #{new_resource.website_name}" do
+		command "Robocopy.exe #{app_checkout} #{website_directory} /MIR /XF .gitignore /XF web.config.erb /XD .git"
+		returns [0, 1]
 	end
 	
 	# Create the site app pool.

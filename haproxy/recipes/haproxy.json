@@ -1,5 +1,7 @@
+{
 "haproxy": {
   "maxcon_factor_rails_app": 1024,
+  "maxcon_factor_iis_app": 1024,
   "connect_timeout": "30s",
   "static_applications": {
   },
@@ -29,6 +31,7 @@
   "enable_stats": true,
   "check_interval": "30s",
   "maxcon_factor_rails_app_ssl": 1024,
+  "maxcon_factor_iis_app_ssl": 1024,
   "php_backends": [
 
   ],
@@ -102,4 +105,5 @@
 
   ],
   "stats_url": "/haproxy?stats"
+}
 }

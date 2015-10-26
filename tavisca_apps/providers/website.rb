@@ -34,10 +34,15 @@ action :add do
 		     Copy-Item "#{website_directory}\\#{new_resource.new_web_config}" "#{website_directory}\\web.config" -Force
 		  EOH
 		end
-	
 	else
-		Chef::Log.debug "Did not find replace web config parameter."
-
+		unless new_resource.web_erb_config.empty? 
+		 	template "#{website_directory}\\web.config" do
+			  source "#{website_directory}\\web_erb_config"
+			end
+	 	
+		else
+			Chef::Log.debug "Did not find any web config replacement configuration."
+		end
 	end
 	
 	# Create the site app pool.

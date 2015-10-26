@@ -40,7 +40,7 @@ action :add do
 
 		 	template "#{website_directory}\\web.config" do
 		 	  local true
-			  source "#{website_directory}\\web_erb_config"
+			  source "#{website_directory}\\#{new_resource.web_erb_config}"
 			  variables(
 			  		:connection_strings => new_resource.web_config_params[:connection_strings]
 			  	)

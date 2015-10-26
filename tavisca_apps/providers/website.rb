@@ -36,6 +36,8 @@ action :add do
 		end
 	else
 		unless new_resource.web_erb_config.empty? 
+			Chef::Log.debug "web.config params #{new_resource.web_config_params}."
+
 		 	template "#{website_directory}\\web.config" do
 		 	  local true
 			  source "#{website_directory}\\web_erb_config"

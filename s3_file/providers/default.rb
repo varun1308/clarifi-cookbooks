@@ -67,11 +67,21 @@ action :create do
 
     response = S3FileLib::get_from_s3(new_resource.bucket, new_resource.s3_url, remote_path, aws_access_key_id, aws_secret_access_key, token)
 
-    # file response.file.path do
-    #   rights :read, 'Everyone'
-    #   rights :full_control, 'Everyone'
-    #   action :touch
-    # end
+    if node["platform"] == 'windows'
+
+      file response.file.path do
+        rights :read, 'Everyone'
+        rights :full_control, 'Everyone'
+        action :touch
+      end
+      else
+        f = response.file.path do
+        action :touch
+        owner new_resource.owner || ENV['user']
+        group new_resource.group || ENV['user']
+        mode new_resource.mode || '0644'
+      end
+    end
     
     # not simply using the file resource here because we would have to buffer
     # whole file into memory in order to set content this solves

@@ -75,7 +75,7 @@ action :create do
         action :touch
       end
       else
-        f = response.file.path do
+        file response.file.path do
         action :touch
         owner new_resource.owner || ENV['user']
         group new_resource.group || ENV['user']

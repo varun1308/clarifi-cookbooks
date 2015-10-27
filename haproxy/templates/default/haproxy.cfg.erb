@@ -25,7 +25,7 @@ defaults
   timeout server <%= node[:haproxy][:server_timeout] %>             # time we may wait for a response from the server.
   timeout queue  <%= node[:haproxy][:queue_timeout] %>              # Don't queue requests too long if saturated.
   timeout connect <%= node[:haproxy][:connect_timeout] %>           # There's no reason to change this one.
-  timeout http-request <%= node[:haproxy][:http_request_timeout] %>	# A complete request may never take that long.
+  timeout http-request <%= node[:haproxy][:http_request_timeout] %> # A complete request may never take that long.
   <% if node[:haproxy][:httpclose] %>
   option          httpclose                                         # disable keepalive (HAProxy does not yet support the HTTP keep-alive mode)
   <% end %>
@@ -64,9 +64,16 @@ backend iis_app_servers_ssl
   mode tcp
   balance <%= node[:haproxy][:balance] %>
   option redispatch
-  option ssl-hello-chk
-  <% node[:haproxy][:iis_backends].each do |backend| -%>
-  server <%= backend['name'] %> <%= backend['ip'] %>:443 weight <%= backend['backends'] || 10 %> maxconn <%= backend['backends'] * node[:haproxy][:maxcon_factor_iis_app_ssl] %> check inter <%= node[:haproxy][:check_interval] %>
+  <% if node[:haproxy][:ssl_term] -%>
+    option forwardfor
+     <% node[:haproxy][:iis_backends].each do |backend| -%>
+    server <%= backend['name'] %> <%= backend['ip'] %>:80 weight <%= backend['backends'] || 10 %> maxconn <%= backend['backends'] * node[:haproxy][:maxcon_factor_iis_app_ssl] %> check inter <%= node[:haproxy][:check_interval] %>
+    <% end -%>
+  <% else -%>
+    option ssl-hello-chk
+    <% node[:haproxy][:iis_backends].each do |backend| -%>
+    server <%= backend['name'] %> <%= backend['ip'] %>:443 weight <%= backend['backends'] || 10 %> maxconn <%= backend['backends'] * node[:haproxy][:maxcon_factor_iis_app_ssl] %> check inter <%= node[:haproxy][:check_interval] %>
+    <% end -%>
   <% end -%>
 <% end -%>
 
@@ -311,7 +318,12 @@ frontend http-in
   
 frontend https-in
   mode tcp
-  bind :443
+  #Check if ssl termination is specified
+  <% if node[:haproxy][:ssl_term] -%>
+    bind :443 ssl crt <%= node[:haproxy][:crt_dir] %>
+  <% else -%>
+    bind :443
+  <% end -%>
   
   # all domains of IIS applications
   <% node[:haproxy][:iis_applications].each do |app_name, app_config| -%>

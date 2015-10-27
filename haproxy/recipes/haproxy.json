@@ -1,11 +1,12 @@
 {
 "haproxy": {
-  "maxcon_factor_rails_app": 1024,
   "maxcon_factor_iis_app": 1024,
   "connect_timeout": "30s",
+  "crt_dir" : "/home/crt_dir/",
+  "ssl_term" : true,
   "static_applications": {
   },
-  "health_check_url": "/",
+  "health_check_url": "/Customers.aspx",
   "php_applications": {
   },
   "nodejs_backends": [
@@ -15,87 +16,28 @@
   "nodejs_applications": {
   },
   "rails_backends": [
-    {
-      "ip": "172.31.8.81",
-      "name": "rails-app1",
-      "backends": 8
-    }
   ],
   "iis_backends":[
     {
-      "ip": "172.31.8.81",
+      "ip": "172.31.30.110",
       "name": "iis-app1",
       "backends": 8
     }
   ],
   "enable_stats": true,
   "check_interval": "30s",
-  "maxcon_factor_rails_app_ssl": 1024,
   "maxcon_factor_iis_app_ssl": 1024,
   "php_backends": [
 
   ],
   "rails_applications": {
-    "applicationxlogin": {
-      "mounted_at": null,
-      "application_type": "rails",
-      "domains": [
-        "login.applicationx.com",
-        "applicationxlogin"
-      ]
-    },
-    "superbappapp": {
-      "mounted_at": null,
-      "application_type": "rails",
-      "domains": [
-        "appwider.com",
-        "www.appwider.com",
-        "*.appraise-app.com",
-        "*.appwider.com",
-        "superbappapp"
-      ]
-    },
-    "betaapp": {
-      "mounted_at": null,
-      "application_type": "rails",
-      "domains": [
-        "betaeasy.com",
-        "www.betaeasy.com",
-        "schoolbureau.co.uk",
-        "www.schoolbureau.co.uk",
-        "betaapp.com",
-        "www.betaapp.com",
-        "betaapp"
-      ]
-    },
-    "applicationxhost": {
-      "mounted_at": null,
-      "application_type": "rails",
-      "domains": [
-        "www.applicationx.com",
-        "*.applicationx.com",
-        "applicationxhost"
-      ]
-    }
   },
   "iis_applications": {
-    "applicationxlogin": {
+    "trip_smart": {
       "mounted_at": null,
       "application_type": "iis",
       "domains": [
-        "login.applicationx.com",
-        "applicationxlogin"
-      ]
-    },
-    "superbappapp": {
-      "mounted_at": null,
-      "application_type": "iis",
-      "domains": [
-        "appwider.com",
-        "www.appwider.com",
-        "*.appraise-app.com",
-        "*.appwider.com",
-        "superbappapp"
+        "trip-smart.com"
       ]
     }
   },
@@ -105,5 +47,13 @@
 
   ],
   "stats_url": "/haproxy?stats"
+},
+"cert_install" : {
+  "local_dir" : "/home/crt_dir/",
+  "remote_path": "certs.zip",
+  "bucket" : "varun-iis-cookbook",
+  "s3_url" : "https://s3-us-west-2.amazonaws.com/varun-iis-cookbook/",
+  "aws_access_key_id" : "AKIAJGYIR6GGP2GML7HQ",
+  "aws_secret_access_key" : "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"
 }
 }

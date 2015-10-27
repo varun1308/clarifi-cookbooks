@@ -46,7 +46,7 @@ listen application 0.0.0.0:80
   # this way HAProxy will not fail on a config check
   balance <%= node[:haproxy][:balance] %>
   server localhost 127.0.0.1:8080 weight 1 maxconn 5 check
-<% else -%>
+<% end -%>
 
 <% if !node[:haproxy][:iis_backends].empty? -%>
 backend iis_app_servers

@@ -1,6 +1,7 @@
 {
 "haproxy": {
   "maxcon_factor_iis_app": 1024,
+  "maxcon_factor_rails_app": 1024,
   "connect_timeout": "30s",
   "crt_dir" : "/home/crt_dir/",
   "ssl_term" : true,
@@ -16,6 +17,11 @@
   "nodejs_applications": {
   },
   "rails_backends": [
+  {
+      "ip": "172.31.30.110",
+      "name": "iis-app1",
+      "backends": 8
+    }
   ],
   "iis_backends":[
     {
@@ -27,10 +33,18 @@
   "enable_stats": true,
   "check_interval": "30s",
   "maxcon_factor_iis_app_ssl": 1024,
+  "maxcon_factor_rails_app_ssl": 1024,
   "php_backends": [
 
   ],
   "rails_applications": {
+    "trip_smart": {
+      "mounted_at": null,
+      "application_type": "rails",
+      "domains": [
+        "trip-smart.com"
+      ]
+    }
   },
   "iis_applications": {
     "trip_smart": {

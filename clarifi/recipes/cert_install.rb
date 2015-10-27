@@ -21,3 +21,8 @@ execute "unzip #{node["cert_install"]['local_file']}" do
     command "unzip #{node["cert_install"]['local_file']}"
     cwd node["cert_install"]['local_dir']
 end
+
+execute "rm #{node["cert_install"]['local_file']}" do
+    command "rm #{node["cert_install"]['local_file']}"
+    cwd node["cert_install"]['local_dir']
+end

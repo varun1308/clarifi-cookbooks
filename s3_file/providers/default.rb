@@ -101,6 +101,11 @@ action :create do
       if node["platform"] == 'windows'
         ::FileUtils.mv(response.file.path, new_resource.path)
       else
+        directory File.dirname(new_resource.path) do
+          owner new_resource.owner || ENV['user']
+          group new_resource.group || ENV['user']
+          mode new_resource.mode || '0644'
+        end
         execute "copy_core" do
             command "mv #{response.file.path} #{new_resource.path}"
             user "root"

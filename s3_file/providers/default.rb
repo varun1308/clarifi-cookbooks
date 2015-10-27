@@ -89,20 +89,25 @@ action :create do
     unless decryption_key.nil?
       begin
         decrypted_file = S3FileLib::aes256_decrypt(decryption_key,response.file.path)
-      rescue OpenSSL::Cipher::CipherError => e
+        rescue OpenSSL::Cipher::CipherError => e
 
-        Chef::Log.error("Error decrypting #{name}, is decryption key correct?")
-        Chef::Log.error("Error message: #{e.message}")
+          Chef::Log.error("Error decrypting #{name}, is decryption key correct?")
+          Chef::Log.error("Error message: #{e.message}")
 
-        raise e
-      end
-
+          raise e
+        end
       ::FileUtils.mv(decrypted_file.path, new_resource.path)
-    else
-      ::FileUtils.mv(response.file.path, new_resource.path)
+      else
+      if node["platform"] == 'windows'
+        ::FileUtils.mv(response.file.path, new_resource.path)
+      else
+        execute "copy_core" do
+            command "mv #{response.file.path} #{new_resource.path}"
+            user "root"
+        end
+      end
     end
     Chef::Log.debug("Downloading file completed: #{new_resource.s3_url}/#{remote_path}")
-
   end
 
   f = file new_resource.path do

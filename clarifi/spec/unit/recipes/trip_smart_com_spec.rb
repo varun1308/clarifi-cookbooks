@@ -6,7 +6,7 @@
 
 require 'spec_helper'
 
-describe 'clarifi::customers' do
+describe 'clarifi::trip_smart_com' do
   context 'When all attributes are default, on an unspecified platform' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new

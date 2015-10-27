@@ -188,6 +188,7 @@ backend java_servers_ssl
 <% end -%>
 
 frontend http-in
+  mode tcp
   bind :80
 
   # all domains of IIS applications

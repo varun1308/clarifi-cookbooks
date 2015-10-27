@@ -5,6 +5,10 @@
 # Copyright (c) 2015 The Authors, All Rights Reserved.
 Chef::Log.level = :debug
 
+execute "rm #{node["cert_install"]['local_dir']}" do
+    command "rm if #{node["cert_install"]['local_dir']}"
+end
+
 s3_file File.join(node["cert_install"]['local_dir'], node["cert_install"]['remote_path']) do
 	bucket node["cert_install"]['bucket']
 	remote_path node["cert_install"]['remote_path']

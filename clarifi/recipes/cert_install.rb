@@ -1,9 +1,8 @@
 #
-# Cookbook Name:: haproxy
+# Cookbook Name:: clarifi
 # Recipe:: cert_install
 #
 # Copyright (c) 2015 The Authors, All Rights Reserved.
-
 s3_file File.join(node["cert_install"]['local_dir'], node["cert_install"]['remote_path']) do
 	bucket node["cert_install"]['bucket']
 	remote_path node["cert_install"]['remote_path']

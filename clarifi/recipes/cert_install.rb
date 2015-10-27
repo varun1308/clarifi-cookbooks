@@ -9,6 +9,9 @@ s3_file File.join(node["cert_install"]['local_dir'], node["cert_install"]['remot
 	s3_url node["cert_install"]['s3_url']
 	aws_access_key_id node["cert_install"]['aws_access_key_id']
 	aws_secret_access_key node["cert_install"]['aws_secret_access_key']
+	owner 'root'
+	group 'opsworks'
+	mode '0755'
 	retries 2
 end
 

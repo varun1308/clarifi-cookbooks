@@ -60,8 +60,6 @@
   "local_dir" : "/home/crt_dir/",
   "remote_path": "certs.zip",
   "bucket" : "varun-iis-cookbook",
-  "s3_url" : "https://s3-us-west-2.amazonaws.com/varun-iis-cookbook",
-  "aws_access_key_id" : "AKIAJGYIR6GGP2GML7HQ",
-  "aws_secret_access_key" : "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"
+  "s3_url" : "https://s3-us-west-2.amazonaws.com/varun-iis-cookbook"
 }
 }

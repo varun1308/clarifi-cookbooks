@@ -13,8 +13,9 @@ s3_file File.join(node["cert_install"]['local_dir'], node["cert_install"]['remot
 	bucket node["cert_install"]['bucket']
 	remote_path node["cert_install"]['remote_path']
 	s3_url node["cert_install"]['s3_url']
-	aws_access_key_id node["cert_install"]['aws_access_key_id']
-	aws_secret_access_key node["cert_install"]['aws_secret_access_key']
+	# haproxy_setup is the name of the app to setup env variables for AWS keys for security
+	aws_access_key_id node[:deploy]['haproxy_setup'][:environment_variables]['aws_access_key_id']
+	aws_secret_access_key node[:deploy]['haproxy_setup'][:environment_variables]['aws_secret_access_key']
 	owner 'root'
 	group 'root'
 	mode '0755'

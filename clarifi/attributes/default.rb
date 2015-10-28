@@ -25,7 +25,7 @@ default['tasks_winsvc']['service_executable_with_args'] = 'Clarifi.ContentManage
 default['tasks_winsvc']['service_start'] = :manual
 
 default['tripsmart']['site_name'] = 'tripsmart'
-default['tripsmart']['host_header'] = 'trip-smart.com'
+default['tripsmart']['host_header'] = ''
 default['tripsmart']['port'] = 80
 default['tripsmart']['protocol'] = :http
 default['tripsmart']['site_base_directory'] = "#{ENV['SYSTEMDRIVE']}\\inetpub\\wwwroot"

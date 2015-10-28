@@ -16,8 +16,16 @@
 	"service_name" : "ContentManagementService",
 	"service_source" : "https://s3-us-west-2.amazonaws.com/varun-iis-cookbook/tasks.zip"
 	},
-	"customers" : {
-	"site_name" : "customers",
+	"tripsmart" : {
+	"site_name" : "tripsmart",
+	"web_config_params" : {
+		"connection_strings" : [
+				{ "name" : "ConnectionStringName", "conn" : "Data Source=mysqldb.csjo2h3fbfba.us-west-2.rds.amazonaws.com;Initial Catalog=learnchef;Integrated Security=False; User Id=varun; password= 1qaz!QAZ;Connect Timeout=300;Encrypt=False;TrustServerCertificate=False"}
+			]
+		}
+	},
+	"tourient" : {
+	"site_name" : "tourient",
 	"web_config_params" : {
 		"connection_strings" : [
 				{ "name" : "ConnectionStringName", "conn" : "Data Source=mysqldb.csjo2h3fbfba.us-west-2.rds.amazonaws.com;Initial Catalog=learnchef;Integrated Security=False; User Id=varun; password= 1qaz!QAZ;Connect Timeout=300;Encrypt=False;TrustServerCertificate=False"}
